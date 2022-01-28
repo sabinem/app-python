@@ -24,9 +24,9 @@ class MovieDAO:
         # tag::get_movies[]
         def get_movies(tx, sort, order, limit, skip, user_id):
         # end::get_movies[]
+            # tag::allcypher[]
             favorites = self.get_user_favorites(tx, user_id)
 
-            # tag::allcypher[]
             cypher = """
                 MATCH (m:Movie)
                 WHERE exists(m.`{0}`)
