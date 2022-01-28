@@ -41,9 +41,32 @@ class GenreDAO:
     """
     # tag::find[]
     def find(self, name):
-        # TODO: Open a new session
-        # TODO: Define a unit of work to find the genre by it's name
-        # TODO: Execute within a Read Transaction
+        # Define a unit of work to find the genre by it's name
+        def find_genre(tx, name):
+            first = tx.run("""
+                MATCH (g:Genre {name: $name})<-[:IN_GENRE]-(m:Movie)
+                WHERE m.imdbRating IS NOT NULL AND m.poster IS NOT NULL AND g.name <> '(no genres listed)'
+                WITH g, m
+                ORDER BY m.imdbRating DESC
 
-        return [g for g in genres if g["name"] == name][0]
+                WITH g, head(collect(m)) AS movie
+
+                RETURN g {
+                    link: '/genres/'+ g.name,
+                    .name,
+                    movies: size((g)<-[:IN_GENRE]-()),
+                    poster: movie.poster
+                } AS genre
+            """, name=name).single()
+
+            # If no records are found raise a NotFoundException
+            if first == None:
+                raise NotFoundException()
+
+            return first.get("genre")
+
+        # Open a new session
+        with self.driver.session() as session:
+            # Execute within a Read Transaction
+            return session.read_transaction(find_genre, name)
     # end::find[]
