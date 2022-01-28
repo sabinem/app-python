@@ -39,7 +39,7 @@ class MovieDAO:
 
             # tag::allmovies[]
             return [row.value("movie") for row in result]
-            # tag::allmovies[]
+            # end::allmovies[]
 
         # tag::return[]
         with self.driver.session() as session:
