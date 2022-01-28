@@ -50,9 +50,6 @@ class MovieDAO:
         with self.driver.session() as session:
             return session.read_transaction(get_movies, sort, order, limit, skip, user_id)
         # end::return[]
-
-
-
     # end::all[]
 
     """
