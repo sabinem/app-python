@@ -93,7 +93,8 @@ class AuthDAO:
         # tag::get_user[]
         def get_user(tx, email):
             # Get the result
-            result = tx.run("MATCH (u:User {email: $email}) RETURN u", email=email)
+            result = tx.run("MATCH (u:User {email: $email}) RETURN u",
+                email=email)
 
             # Expect a single row
             first = result.single()
