@@ -25,7 +25,6 @@ class GenreDAO:
     """
     # tag::all[]
     def all(self):
-
         # Define a unit of work to Get a list of Genres
         def get_movies(tx):
             result = tx.run("""
