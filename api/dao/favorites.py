@@ -53,6 +53,7 @@ class FavoriteDAO:
     # tag::add[]
     def add(self, user_id, movie_id):
         # tag::add_to_favorites_run[]
+        # Define a new transaction function to create a HAS_FAVORITE relationship
         def add_to_favorites(tx, user_id, movie_id):
             row = tx.run("""
                 MATCH (u:User {userId: $userId})
