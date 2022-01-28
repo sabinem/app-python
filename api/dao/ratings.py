@@ -34,7 +34,7 @@ class RatingDAO:
                 rating: r.rating
             } AS movie
             """, user_id=user_id, movie_id=movie_id, rating=rating).single()
-        # tag::create_rating[]
+        # end::create_rating[]
 
         # tag::run_create_rating[]
         with self.driver.session() as session:
