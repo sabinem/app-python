@@ -21,7 +21,7 @@ class PeopleDAO:
     """
     # tag::all[]
     def all(self, q, sort = 'name', order = 'ASC', limit = 6, skip = 0):
-        # TODO: Get a list of people from the database
+        # Get a list of people from the database
         def get_all_people(tx, q, sort, order, limit, skip):
             cypher = "MATCH (p:Person) "
 
