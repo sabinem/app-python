@@ -15,3 +15,5 @@ build/
 neoflix/
 .DS_Store
 .env
+
+p3venv
